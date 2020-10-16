@@ -13,6 +13,7 @@ import tokens from './plugins/tokens';
 import names from './plugins/names';
 import runMigrations from './migrations';
 import invitesModule from './modules/invites';
+import fungibleTokensModule from './modules/fungibleTokens';
 import { defaultNetwork } from '../popup/utils/constants';
 
 Vue.use(Vuex);
@@ -39,7 +40,9 @@ const initialState = {
   sdk: null,
   middleware: null,
   tipping: null,
+  tippingV2: null,
   tippingAddress: null,
+  tippingAddressV2: null,
   mainLoading: true,
   nodeStatus: 'connecting',
   currencies: {},
@@ -127,5 +130,6 @@ export default new Vuex.Store({
   ],
   modules: {
     invites: invitesModule,
+    fungibleTokens: fungibleTokensModule,
   },
 });
