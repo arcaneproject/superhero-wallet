@@ -27,7 +27,8 @@ import NotFound from '../pages/NotFound';
 import ClaimTips from '../pages/ClaimTips';
 import DonateError from '../pages/DonateError';
 import Address from '../pages/Address';
-import Tokens from '../pages/FungibleTokens/Index';
+import Tokens from '../pages/FungibleTokens/TokensPreview';
+import TokenDetails from '../pages/FungibleTokens/TokenDetails';
 import DeployToken from '../pages/FungibleTokens/Deploy';
 import AddToken from '../pages/FungibleTokens/Add';
 import MintToken from '../pages/FungibleTokens/Mint';
@@ -326,10 +327,20 @@ export default [
     },
   },
   {
+    name: 'fungible-tokens',
     path: '/tokens',
     component: Tokens,
     meta: {
       title: 'fungible-tokens',
+    },
+  },
+  {
+    name: 'token-details',
+    path: '/tokens/:contract',
+    component: TokenDetails,
+    meta: {
+      title: 'token-details',
+      notPersist: true,
     },
   },
   {
