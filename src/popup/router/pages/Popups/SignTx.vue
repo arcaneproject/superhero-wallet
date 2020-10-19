@@ -83,7 +83,7 @@ export default {
         OBJECT_ID_TX_TYPE[this.txObject.tag],
       );
       const contractAddress = await this.$store
-        .dispatch('getTipContractAddress')
+        .dispatch('getTipContractAddressV1')
         .catch(() => false);
       if (contractAddress) {
         const { isTip, amount } = getContractCallInfo(tx, contractAddress);

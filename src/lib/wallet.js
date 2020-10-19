@@ -59,17 +59,17 @@ async function getKeyPair() {
 
 async function initContractInstances() {
   if (!store.getters.tippingSupported && !process.env.RUNNING_IN_TESTS) return;
-  const contractAddress = await store.dispatch('getTipContractAddress');
+  const contractAddressV1 = await store.dispatch('getTipContractAddressV1');
   const contractAddressV2 = await store.dispatch('getTipContractAddressV2');
-  const contractInstance = await store.state.sdk.getContractInstance(TIPPING_V1_INTERFACE, {
-    contractAddress,
+  const contractInstanceV1 = await store.state.sdk.getContractInstance(TIPPING_V1_INTERFACE, {
+    contractAddress: contractAddressV1,
     forceCodeCheck: true,
   });
   const contractInstanceV2 = await store.state.sdk.getContractInstance(TIPPING_V2_INTERFACE, {
     contractAddress: contractAddressV2,
     forceCodeCheck: true,
   });
-  store.commit('setTipping', contractInstance);
+  store.commit('setTippingV1', contractInstanceV1);
   store.commit('setTippingV2', contractInstanceV2);
 }
 

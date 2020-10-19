@@ -43,8 +43,8 @@ export default {
   setEncryptedWallet(state, payload) {
     state.encryptedWallet = payload;
   },
-  setTipping(state, payload) {
-    state.tipping = payload;
+  setTippingV1(state, payload) {
+    state.tippingV1 = payload;
   },
   setTippingV2(state, payload) {
     state.tippingV2 = payload;
@@ -112,8 +112,8 @@ export default {
   setTourStatusBar(state, payload) {
     state.tourStartBar = payload;
   },
-  setTippingAddress(state, payload) {
-    state.tippingAddress = payload;
+  setTippingAddressV1(state, payload) {
+    state.tippingAddressV1 = payload;
   },
   setTippingAddressV2(state, payload) {
     state.tippingAddressV2 = payload;

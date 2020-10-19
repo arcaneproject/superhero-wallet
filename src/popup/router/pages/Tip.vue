@@ -81,7 +81,7 @@
         </div>
         <Button
           @click="isFungibleToken ? sendFungibleTokenTip() : sendTip()"
-          :disabled="isFungibleToken ? !tippingV2 : !tipping"
+          :disabled="isFungibleToken ? !tippingV2 : !tippingV1"
           data-cy="confirm-tip"
         >
           {{ $t('pages.tipPage.confirm') }}
@@ -137,11 +137,11 @@ export default {
     ...mapState([
       'tourRunning',
       'tippingAddressV2',
-      'tippingAddress',
+      'tippingAddressV1',
       'balance',
       'tip',
       'sdk',
-      'tipping',
+      'tippingV1',
       'tippingV2',
     ]),
     ...mapState('fungibleTokens', ['selectedToken', 'tokenBalances']),
@@ -186,10 +186,10 @@ export default {
         localStorage.removeItem('lsroute');
       }
     }
-    await this.$watchUntilTruly(() => this.sdk && this.tippingAddress);
+    await this.$watchUntilTruly(() => this.sdk && this.tippingAddressV1);
     this.minCallFee = calculateFee(TX_TYPES.contractCall, {
       ...this.sdk.Ae.defaults,
-      contractId: this.tippingAddress,
+      contractId: this.tippingAddressV1,
       callerId: this.account.publicKey,
     }).min;
   },
@@ -242,11 +242,15 @@ export default {
       const amount = aeToAettos(this.amount);
       this.loading = true;
       try {
-        const { hash } = await this.tipping.call('tip', [this.url, escapeSpecialChars(this.note)], {
-          amount,
-          waitMined: false,
-          modal: false,
-        });
+        const { hash } = await this.tippingV1.call(
+          'tip',
+          [this.url, escapeSpecialChars(this.note)],
+          {
+            amount,
+            waitMined: false,
+            modal: false,
+          },
+        );
         if (hash) {
           await this.$store.dispatch('setPendingTx', {
             hash,

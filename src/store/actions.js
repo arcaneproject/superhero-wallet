@@ -123,12 +123,12 @@ export default {
 
     return { addresses: uniq(addresses).filter(a => a), tab };
   },
-  async getTipContractAddress({ state: { sdk }, getters: { activeNetwork }, commit }) {
-    const { tipContract } = activeNetwork;
-    const contractAddress = tipContract.includes('.chain')
-      ? getAddressByNameEntry(await sdk.api.getNameEntryByName(tipContract), 'contract_pubkey')
-      : tipContract;
-    commit('setTippingAddress', contractAddress);
+  async getTipContractAddressV1({ state: { sdk }, getters: { activeNetwork }, commit }) {
+    const { tipContractV1 } = activeNetwork;
+    const contractAddress = tipContractV1.includes('.chain')
+      ? getAddressByNameEntry(await sdk.api.getNameEntryByName(tipContractV1), 'contract_pubkey')
+      : tipContractV1;
+    commit('setTippingAddressV1', contractAddress);
     return contractAddress;
   },
   async getTipContractAddressV2({ getters: { activeNetwork }, commit }) {
