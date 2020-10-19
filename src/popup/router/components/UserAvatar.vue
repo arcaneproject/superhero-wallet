@@ -12,11 +12,6 @@
 
 <script>
 import { mapGetters } from 'vuex';
-import jdenticon from 'jdenticon';
-import Avatars from '@dicebear/avatars';
-import sprites from '@dicebear/avatars-avataaars-sprites';
-
-import { IDENTICON_CONFIG, IDENTICON_SIZES, AVATAR_CONFIG } from '../../utils/constants';
 
 export default {
   props: {
@@ -32,25 +27,14 @@ export default {
     error: false,
   }),
   computed: {
-    ...mapGetters(['getProfileImage']),
+    ...mapGetters(['getProfileImage', 'getIdentIconOrAvatar']),
     profileImage() {
       return this.getProfileImage(this.address);
     },
     avatar() {
-      if (this.name) {
-        const avatars = new Avatars(sprites, AVATAR_CONFIG);
-        return {
-          type: 'avatar',
-          src: avatars.create(this.name),
-        };
-      }
-      jdenticon.config = IDENTICON_CONFIG;
-      return {
-        type: 'identicon',
-        src: `data:image/svg+xml;base64,${btoa(
-          jdenticon.toSvg(this.address, IDENTICON_SIZES[this.size]),
-        )}`,
-      };
+      return this.name
+        ? { src: this.getIdentIconOrAvatar(this.name), type: 'avatar' }
+        : { src: this.getIdentIconOrAvatar(this.address), type: 'identicon' };
     },
   },
 };

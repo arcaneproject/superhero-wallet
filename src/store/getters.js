@@ -30,6 +30,7 @@ export default {
   },
   getProfileImage: (_, { activeNetwork }) => address =>
     `${activeNetwork.backendUrl}/profile/image/${address}`,
+  getIdentIconOrAvatar: () => address => `https://avatars.z52da5wt.xyz/${address}`,
   activeAccountName({ account }, getters) {
     return getters['names/getDefault'](get(account, 'publicKey')) || 'Main account';
   },
